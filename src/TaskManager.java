@@ -41,7 +41,7 @@ public class TaskManager {
             this.createdIso = createdIso;
             this.priority = priority;
             this.tags = tags;
-            this.description = description;
+            this.description = (description == null) ? "" : description;
         }
 
         static Task fromLine(String line) {
@@ -158,7 +158,7 @@ public class TaskManager {
     }
 
     private void handleAdd(String[] parts, String rawInput) {
-        // Extract description: find first quoted string or the rest after 'add '
+        // Try to extract description from quotes
         String description = null;
         int firstQuote = rawInput.indexOf("\"");
         if (firstQuote >= 0) {
@@ -168,17 +168,32 @@ public class TaskManager {
             }
         }
 
-        // fallback: use the tokens after 'add'
+        // Fallback: if no quotes found, take everything after 'add' excluding flags
+        if (description == null) {
+            List<String> descParts = new ArrayList<>();
+            for (int i = 1; i < parts.length; i++) {
+                if (parts[i].equalsIgnoreCase("--priority") && i + 1 < parts.length) {
+                    i++; // skip priority value
+                } else if (parts[i].equalsIgnoreCase("--tags") && i + 1 < parts.length) {
+                    i++; // skip tags value
+                } else {
+                    descParts.add(parts[i]);
+                }
+            }
+            description = String.join(" ", descParts);
+        }
 
+        // Ensure description is never null
+        if (description == null) description = "";
 
         int priority = 0;
         List<String> tags = new ArrayList<>();
-        // parse optional flags from tokens
+        // parse optional flags
         for (int i = 1; i < parts.length; i++) {
             if (parts[i].equalsIgnoreCase("--priority") && i + 1 < parts.length) {
-                try { priority = Integer.parseInt(parts[i+1]); } catch (Exception ignored) {}
+                try { priority = Integer.parseInt(parts[i + 1]); } catch (Exception ignored) {}
             } else if (parts[i].equalsIgnoreCase("--tags") && i + 1 < parts.length) {
-                String[] t = parts[i+1].split(",");
+                String[] t = parts[i + 1].split(",");
                 for (String s : t) if (!s.trim().isEmpty()) tags.add(s.trim());
             }
         }
@@ -188,6 +203,7 @@ public class TaskManager {
         save();
         System.out.println("Added: " + description);
     }
+
 
     private void handleList() {
         if (tasks.isEmpty()) {
