@@ -4,27 +4,28 @@
 **Option Chosen:** Option 2 – Command-Line To-Do App  
 **Language & Tools:**  
 - Java 17  
-- IntelliJ IDEA (for development)  
+- IntelliJ IDEA (development)  
 - Standard Java I/O and utilities  
 
 ---
 
 ## 📌 Overview
-This is a **simple command-line To-Do list application** that supports:
+A **simple command-line To-Do list application** that supports:
 
-- Adding tasks (with optional priority & tags)
-- Listing tasks
-- Marking tasks as done (checks if already done)
+- Adding tasks (with optional **priority** & **tags**)
+- Listing tasks with status, priority, tags, and timestamp
+- Marking tasks as done (with duplicate-check prevention)
 - Deleting tasks
 - Persistent storage in `tasks.txt`
 
-**Extra features implemented:**
-- **Priority** (`--priority N`)
-- **Tags** (`--tags tag1,tag2`)
-- **Creation timestamp** for each task
-- Defensive handling for malformed task file lines
+### **Bonus Features Implemented**
+- `--priority N` → Assign task priority
+- `--tags tag1,tag2` → Assign tags/categories
+- Automatic creation timestamp for each task
+- Defensive handling for malformed lines in the storage file
 
 ---
+
 ## 📂 Project Structure
 eT3-Software-Development-Internship/
 ├── src/
@@ -32,11 +33,10 @@ eT3-Software-Development-Internship/
 ├── tasks.txt # Storage file (auto-created if missing)
 ├── README.md
 └── .gitignore
----
 
-## 🚀 How to Run
-
-1. **Compile**  
-   Navigate to the `src` folder and run:
+1. **Compile**
+   ```bash
    javac src/TaskManager.java
 
+
+## 📂 Project Structure
