@@ -38,5 +38,3 @@ eT3-Software-Development-Internship/
    ```bash
    javac src/TaskManager.java
 
-
-## 📂 Project Structure
