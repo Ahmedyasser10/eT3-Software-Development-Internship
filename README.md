@@ -34,6 +34,9 @@ eT3-Software-Development-Internship/
 ├── README.md
 └── .gitignore
 
+---
+
+## 🚀 How to Run
 1. **Compile**
    ```bash
    javac src/TaskManager.java
