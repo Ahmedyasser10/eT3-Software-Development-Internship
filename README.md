@@ -38,6 +38,5 @@ eT3-Software-Development-Internship/
 
 ## 🚀 How to Run
 1. **Compile**
-   ```bash
    javac src/TaskManager.java
 
